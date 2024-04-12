@@ -1,5 +1,7 @@
 package michelavivacqua.gestionedispositivi.services;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import michelavivacqua.gestionedispositivi.entities.Dipendente;
 import michelavivacqua.gestionedispositivi.exceptions.BadRequestException;
 import michelavivacqua.gestionedispositivi.exceptions.NotFoundException;
@@ -7,13 +9,18 @@ import michelavivacqua.gestionedispositivi.payloads.NewDipendenteDTO;
 import michelavivacqua.gestionedispositivi.repositories.DipendentiDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
 public class DipendentiService {
     @Autowired
     private DipendentiDAO dipendentiDAO;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public DipendentiService(DipendentiDAO dipendentiDAO) {
         this.dipendentiDAO = dipendentiDAO;
@@ -53,6 +60,16 @@ public class DipendentiService {
         dipendentiDAO.deleteById(dipendenteId);
     }
 
+    public String uploadImage(MultipartFile image) throws IOException {
+        String url = (String) cloudinaryUploader.uploader().upload(image.getBytes(), ObjectUtils.emptyMap()).get("url");
+        return url;
+    }
 
+    public Dipendente uploadDipendenteImage (MultipartFile image,int dipendenteId) throws IOException{
+        Dipendente found = this.findById(dipendenteId);
+        found.setPropic(this.uploadImage(image));
+        this.dipendentiDAO.save(found);
+        return found;
+    }
 
 }

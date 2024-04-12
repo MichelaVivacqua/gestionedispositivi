@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -61,6 +63,13 @@ public class DipendentiController {
     public void deleteDipendenteById(@PathVariable int dipendenteId) {
         this.dipendentiService.findByIdAndDelete(dipendenteId);
     }
+    
 
+//    UPLOAD DI FOTO PER DIPENDENTE
+//    http://localhost:3001/dipendenti/upload/{dipendenteId}
+    @PostMapping("/upload/{dipendenteId}")
+    public Dipendente uploadPropic (@RequestParam("propic") MultipartFile image, @PathVariable int dipendenteId) throws IOException {
+        return this.dipendentiService.uploadDipendenteImage(image,dipendenteId);
+    }
 
 }
