@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
 
 import java.util.List;
 
@@ -35,10 +37,21 @@ public class DispositiviController {
 
     // 1.1 POST per assegnare un dispositivo a un dipendente
 //    http://localhost:3001/dispositivi/{dispositivoId}/assegna/{dipendenteId}
-    @PostMapping("/{dispositivoId}/assegna/{dipendenteId}")
-    public Dispositivo assegnaDispositivo(@PathVariable int dispositivoId, @PathVariable int dipendenteId) {
-        return dispositiviService.assegnaDispositivo(dispositivoId, dipendenteId);
-    }
+//    @PostMapping("/{dispositivoId}/assegna/{dipendenteId}")
+//    public Dispositivo assegnaDispositivo(@PathVariable int dispositivoId, @PathVariable int dipendenteId) {
+//        return dispositiviService.assegnaDispositivo(dispositivoId, dipendenteId);
+//    }
+
+
+
+//    1.2 POST per assegnare uno o più dispositivi ad un dipendente
+//    http://localhost:3001/dispositivi/assegna/{dipendenteId}+  body[ dipositivoId, dispositivoId ...]
+    @PostMapping("/assegna/{dipendenteId}")
+    public ResponseEntity<String> assegnaDispositivi(@PathVariable int dipendenteId, @RequestBody List<Integer> dispositiviId) {
+    dispositiviService.assegnaDispositivi(dipendenteId, dispositiviId);
+    return ResponseEntity.ok("Dispositivi assegnati con successo al dipendente con ID: " + dipendenteId);
+}
+
 
     // 2. GET http://localhost:3001/dispositivi/{{dispositivoId}}
     @GetMapping("/{dispositivoId}")

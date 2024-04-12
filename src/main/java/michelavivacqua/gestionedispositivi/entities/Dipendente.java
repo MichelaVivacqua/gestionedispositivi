@@ -1,5 +1,6 @@
 package michelavivacqua.gestionedispositivi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Dipendente {
     private String surname;
     private String email;
     private String propic;
+    @JsonIgnore
     @OneToMany(mappedBy = "dipendente")
     private List<Dispositivo> dispositivi;
 

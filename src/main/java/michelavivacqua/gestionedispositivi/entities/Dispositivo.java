@@ -15,7 +15,7 @@ public class Dispositivo {
     private int id;
     private String tipologia;
     private String stato;
-    @ManyToOne(optional = true)
+    @ManyToOne
     @JoinColumn(name = "dipendente_id")
     private Dipendente dipendente;
 

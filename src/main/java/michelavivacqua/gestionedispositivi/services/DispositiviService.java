@@ -57,16 +57,30 @@ public class DispositiviService {
         dispositiviDAO.deleteById(dispositivoId);
     }
 
-    @Transactional
-    public Dispositivo assegnaDispositivo(int dispositivoId, int dipendenteId) {
-        Dispositivo dispositivo = dispositiviDAO.findById(dispositivoId)
-                .orElseThrow(() -> new EntityNotFoundException("Dispositivo non trovato con ID: " + dispositivoId));
+//    @Transactional
+//    public Dispositivo assegnaDispositivo(int dispositivoId, int dipendenteId) {
+//        Dispositivo dispositivo = dispositiviDAO.findById(dispositivoId)
+//                .orElseThrow(() -> new EntityNotFoundException("Dispositivo non trovato con ID: " + dispositivoId));
+//
+//        Dipendente dipendente = dipendentiDAO.findById(dipendenteId)
+//                .orElseThrow(() -> new EntityNotFoundException("Dipendente non trovato con ID: " + dipendenteId));
+//
+//        dispositivo.setDipendente(dipendente);
+//
+//        return dispositiviDAO.save(dispositivo);
+//    }
 
-        Dipendente dipendente = dipendentiDAO.findById(dipendenteId)
+    @Transactional
+    public void assegnaDispositivi(int dipendenteId, List<Integer> dispositiviId) {
+       Dipendente dipendente = dipendentiDAO.findById(dipendenteId)
                 .orElseThrow(() -> new EntityNotFoundException("Dipendente non trovato con ID: " + dipendenteId));
 
-        dispositivo.setDipendente(dipendente);
+       List<Dispositivo> dispositivi = dispositiviDAO.findAllById(dispositiviId);
 
-        return dispositiviDAO.save(dispositivo);
+        for (Dispositivo dispositivo : dispositivi) {
+            dispositivo.setDipendente(dipendente);
+        }
+
+        dispositiviDAO.saveAll(dispositivi);
     }
 }
