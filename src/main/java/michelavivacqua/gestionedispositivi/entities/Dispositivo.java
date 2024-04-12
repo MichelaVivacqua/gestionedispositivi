@@ -2,7 +2,6 @@ package michelavivacqua.gestionedispositivi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import michelavivacqua.gestionedispositivi.enums.StatoDispositivo;
 
 @Getter
 @Setter
@@ -15,13 +14,13 @@ public class Dispositivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String tipologia;
-    @Enumerated(EnumType.STRING)
-    private StatoDispositivo stato;
+//    @Enumerated(EnumType.STRING)
+    private String stato;
     @ManyToOne
     @JoinColumn(name = "dipendente_id")
     private Dipendente dipendente;
 
-    public Dispositivo(String tipologia, StatoDispositivo stato) {
+    public Dispositivo(String tipologia, String stato) {
         this.tipologia = tipologia;
         this.stato = stato;
     }
