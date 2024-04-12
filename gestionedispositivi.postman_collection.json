@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "7d0f2c6a-fece-4d9d-9e29-26de54024954",
+		"name": "gestionedispositivi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "34138800"
+	},
+	"item": [
+		{
+			"name": "dipendente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"boohsdfghjk\",\r\n  \"name\": \"Michela\",\r\n  \"surname\": \"Giannone\",\r\n  \"email\": \"bohh@example.com\",\r\n  \"propic\": \"https://example.com/michela.jpg\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/dipendenti"
+			},
+			"response": []
+		},
+		{
+			"name": "dipendente singolo con id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/dipendenti/3"
+			},
+			"response": []
+		},
+		{
+			"name": "tutti i dipendenti",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/dipendenti"
+			},
+			"response": []
+		},
+		{
+			"name": "modifica dipendente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"username\": \"michelavivacqua\",\r\n    \"name\": \"Michla\",\r\n    \"surname\": \"Giannone\",\r\n    \"email\": \"michela@example.com\",\r\n    \"propic\": \"https://example.com/michela.jpg\",\r\n    \"dispositivi\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/dipendenti/2"
+			},
+			"response": []
+		},
+		{
+			"name": "elimina dipendente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3001/dipendenti/5"
+			},
+			"response": []
+		},
+		{
+			"name": "dispositivi",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipologia\": \"cellulare aziendale\",\r\n    \"stato\": \"DISPONIBILE\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/dispositivi"
+			},
+			"response": []
+		},
+		{
+			"name": "dispositivi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/dispositivi"
+			},
+			"response": []
+		},
+		{
+			"name": "dispositivo con id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/dispositivi/3"
+			},
+			"response": []
+		},
+		{
+			"name": "modifica dispositivo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipologia\": \"elicottero\",\r\n    \"stato\": \"DISPONIBILE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/dispositivi/9"
+			},
+			"response": []
+		},
+		{
+			"name": "dispositivo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3001/dispositivi/9"
+			},
+			"response": []
+		},
+		{
+			"name": "assegnazione",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n 14\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/dispositivi/assegna/4"
+			},
+			"response": []
+		},
+		{
+			"name": "upload image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "propic",
+							"type": "file",
+							"src": "postman-cloud:///1eef8c51-42ea-40f0-aa32-f55c3a852b29"
+						}
+					]
+				},
+				"url": "http://localhost:3001/dipendenti/upload/4"
+			},
+			"response": []
+		},
+		{
+			"name": "dispositivi page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/dispositivi/page"
+			},
+			"response": []
+		},
+		{
+			"name": "dipendenti page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/dipendenti/page"
+			},
+			"response": []
+		}
+	]
+}
