@@ -7,6 +7,7 @@ import michelavivacqua.gestionedispositivi.payloads.NewDispositivoDTO;
 import michelavivacqua.gestionedispositivi.payloads.NewDispositivoRespDTO;
 import michelavivacqua.gestionedispositivi.services.DispositiviService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -65,6 +66,13 @@ public class DispositiviController {
         return this.dispositiviService.getDispositiviList();
     }
 
+//    3.1 Paginazione e ordinamento http://localhost:3001/dispositivi/page
+    @GetMapping("/page")
+    public Page<Dispositivo> getAllDispositivi(@RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "1") int size,
+                                         @RequestParam(defaultValue = "id") String sortBy) {
+        return this.dispositiviService.getDispositivi(page, size, sortBy);
+    }
 
     // 4. PUT http://localhost:3001/dispositivi/{{dispositivoId}} (+ body)
     @PutMapping("/{dispositivoId}")

@@ -3,11 +3,16 @@ package michelavivacqua.gestionedispositivi.services;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import michelavivacqua.gestionedispositivi.entities.Dipendente;
+import michelavivacqua.gestionedispositivi.entities.Dispositivo;
 import michelavivacqua.gestionedispositivi.exceptions.BadRequestException;
 import michelavivacqua.gestionedispositivi.exceptions.NotFoundException;
 import michelavivacqua.gestionedispositivi.payloads.NewDipendenteDTO;
 import michelavivacqua.gestionedispositivi.repositories.DipendentiDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,6 +75,12 @@ public class DipendentiService {
         found.setPropic(this.uploadImage(image));
         this.dipendentiDAO.save(found);
         return found;
+    }
+
+    public Page<Dipendente> getDipendenti(int page, int size, String sortBy){
+        if(size > 70) size = 70;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return this.dipendentiDAO.findAll(pageable);
     }
 
 }

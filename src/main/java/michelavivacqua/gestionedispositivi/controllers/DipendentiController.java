@@ -1,11 +1,13 @@
 package michelavivacqua.gestionedispositivi.controllers;
 
 import michelavivacqua.gestionedispositivi.entities.Dipendente;
+import michelavivacqua.gestionedispositivi.entities.Dispositivo;
 import michelavivacqua.gestionedispositivi.exceptions.BadRequestException;
 import michelavivacqua.gestionedispositivi.payloads.NewDipendenteDTO;
 import michelavivacqua.gestionedispositivi.payloads.NewDipendenteRespDTO;
 import michelavivacqua.gestionedispositivi.services.DipendentiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +49,14 @@ public class DipendentiController {
         private List<Dipendente> getAllDipendenti(){
             return this.dipendentiService.getDipendentiList();
         }
+
+    //    3.1 Paginazione e ordinamento http://localhost:3001/dipendenti/page
+    @GetMapping("/page")
+    public Page<Dipendente> getAllDipendenti(@RequestParam(defaultValue = "0") int page,
+                                               @RequestParam(defaultValue = "2") int size,
+                                               @RequestParam(defaultValue = "id") String sortBy) {
+        return this.dipendentiService.getDipendenti(page, size, sortBy);
+    }
 
 
     // 4. PUT http://localhost:3001/dipendenti/{{dipendenteId}} (+ body)

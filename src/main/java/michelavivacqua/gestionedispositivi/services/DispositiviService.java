@@ -11,6 +11,10 @@ import michelavivacqua.gestionedispositivi.payloads.NewDispositivoDTO;
 import michelavivacqua.gestionedispositivi.repositories.DipendentiDAO;
 import michelavivacqua.gestionedispositivi.repositories.DispositiviDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -82,5 +86,11 @@ public class DispositiviService {
         }
 
         dispositiviDAO.saveAll(dispositivi);
+    }
+
+    public Page<Dispositivo> getDispositivi(int page, int size, String sortBy){
+        if(size > 50) size = 50;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return this.dispositiviDAO.findAll(pageable);
     }
 }
