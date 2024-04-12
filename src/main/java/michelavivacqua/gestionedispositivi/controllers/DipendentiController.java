@@ -63,7 +63,7 @@ public class DipendentiController {
     public void deleteDipendenteById(@PathVariable int dipendenteId) {
         this.dipendentiService.findByIdAndDelete(dipendenteId);
     }
-    
+
 
 //    UPLOAD DI FOTO PER DIPENDENTE
 //    http://localhost:3001/dipendenti/upload/{dipendenteId}
