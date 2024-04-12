@@ -39,7 +39,7 @@ public class DispositiviService {
     public Dispositivo saveDispositivo(NewDispositivoDTO newDispositivoDTO) {
 
         Dispositivo dispositivo = new Dispositivo(newDispositivoDTO.tipologia(),newDispositivoDTO.stato());
-        System.out.println(dispositivo);
+//        System.out.println(dispositivo);
         return dispositiviDAO.save(dispositivo);
     }
 

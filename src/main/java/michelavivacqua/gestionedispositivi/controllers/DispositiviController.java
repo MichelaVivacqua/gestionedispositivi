@@ -32,7 +32,7 @@ public class DispositiviController {
             System.out.println(validation.getAllErrors());
             throw new BadRequestException(validation.getAllErrors());
         }
-        System.out.println(body);
+//        System.out.println(body);
         return new NewDispositivoRespDTO(this.dispositiviService.saveDispositivo(body).getId());}
 
 
