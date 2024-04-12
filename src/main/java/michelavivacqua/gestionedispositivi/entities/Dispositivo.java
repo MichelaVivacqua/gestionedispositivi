@@ -14,7 +14,13 @@ public class Dispositivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String tipologia;
+    private String stato;
     @ManyToOne(optional = true)
     @JoinColumn(name = "dipendente_id")
     private Dipendente dipendente;
+
+    public Dispositivo(String tipologia, String stato) {
+        this.tipologia = tipologia;
+        this.stato = stato;
+    }
 }
