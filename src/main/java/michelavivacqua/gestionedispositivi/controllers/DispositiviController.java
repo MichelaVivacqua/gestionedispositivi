@@ -33,6 +33,12 @@ public class DispositiviController {
         return new NewDispositivoRespDTO(this.dispositiviService.saveDispositivo(body).getId());}
 
 
+    // 1.1 POST per assegnare un dispositivo a un dipendente
+//    http://localhost:3001/dispositivi/{dispositivoId}/assegna/{dipendenteId}
+    @PostMapping("/{dispositivoId}/assegna/{dipendenteId}")
+    public Dispositivo assegnaDispositivo(@PathVariable int dispositivoId, @PathVariable int dipendenteId) {
+        return dispositiviService.assegnaDispositivo(dispositivoId, dipendenteId);
+    }
 
     // 2. GET http://localhost:3001/dispositivi/{{dispositivoId}}
     @GetMapping("/{dispositivoId}")

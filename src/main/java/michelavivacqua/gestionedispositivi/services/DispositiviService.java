@@ -1,5 +1,7 @@
 package michelavivacqua.gestionedispositivi.services;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import michelavivacqua.gestionedispositivi.entities.Dipendente;
 import michelavivacqua.gestionedispositivi.entities.Dispositivo;
 import michelavivacqua.gestionedispositivi.exceptions.BadRequestException;
@@ -17,6 +19,8 @@ import java.util.List;
 public class DispositiviService {
     @Autowired
     private DispositiviDAO dispositiviDAO;
+    @Autowired
+    private DipendentiDAO dipendentiDAO;
 
     public DispositiviService(DispositiviDAO dispositiviDAO) {
         this.dispositiviDAO = dispositiviDAO;
@@ -36,6 +40,7 @@ public class DispositiviService {
     }
 
 
+
     public Dispositivo findById(int id) {
         return dispositiviDAO.findById(id)
                 .orElseThrow(() -> new NotFoundException(id));
@@ -50,5 +55,18 @@ public class DispositiviService {
 
     public void findByIdAndDelete(int dispositivoId) {
         dispositiviDAO.deleteById(dispositivoId);
+    }
+
+    @Transactional
+    public Dispositivo assegnaDispositivo(int dispositivoId, int dipendenteId) {
+        Dispositivo dispositivo = dispositiviDAO.findById(dispositivoId)
+                .orElseThrow(() -> new EntityNotFoundException("Dispositivo non trovato con ID: " + dispositivoId));
+
+        Dipendente dipendente = dipendentiDAO.findById(dipendenteId)
+                .orElseThrow(() -> new EntityNotFoundException("Dipendente non trovato con ID: " + dipendenteId));
+
+        dispositivo.setDipendente(dipendente);
+
+        return dispositiviDAO.save(dispositivo);
     }
 }

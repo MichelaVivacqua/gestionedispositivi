@@ -9,6 +9,7 @@ public record NewDispositivoDTO(
         String tipologia,
         @NotEmpty(message = "Lo stato è obbligatorio")
         @Size(min = 2, max = 30, message = "Lo stato deve essere compreso tra i 2 e i 30 caratteri")
-        String stato
+        String stato,
+        Integer dipendenteId
 ) {
 }
